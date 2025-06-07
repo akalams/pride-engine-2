@@ -129,6 +129,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <None Include=".gitignore" />
+    <None Include="game\init.json" />
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
@@ -137,6 +138,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\json.hpp" />
+    <ClInclude Include="src\constants.hpp" />
     <ClInclude Include="src\Engine.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

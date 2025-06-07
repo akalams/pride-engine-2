@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 
 
 class Engine
@@ -9,6 +10,9 @@ public:
 
 private:
 	bool mRunning;
+	std::vector <char> mScene;
+	size_t mSceneWidth;
+	size_t mSceneHeight;
 	void start();
 	void readInput();
 	void update();

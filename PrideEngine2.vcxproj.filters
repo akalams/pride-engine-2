@@ -17,6 +17,7 @@
   <ItemGroup>
     <None Include=".gitignore" />
     <None Include="README.md" />
+    <None Include="game\init.json" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -31,6 +32,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\json.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\constants.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

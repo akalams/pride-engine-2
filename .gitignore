@@ -1045,4 +1045,4 @@ dkms.conf
 *.dis
 
 # Engine Specific
-# game/
+.vscode/

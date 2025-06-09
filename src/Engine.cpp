@@ -44,6 +44,12 @@ void Engine::start()
 	// Setup the scene from init JSON
 	mSceneWidth = init["width"];
 	mSceneHeight = init["height"];
+
+	// Initialize scene with some characters
+	mTransforms = ComponentSet<Transform>(mSceneWidth * mSceneHeight);
+	mTransforms.addComponent({2, 2});
+	mViews = ComponentSet<View>(mSceneWidth * mSceneHeight);
+	mViews.addComponent({'P'});
 }
 
 void Engine::readInput()
@@ -63,7 +69,20 @@ void Engine::update()
 	{
 		for (size_t j = 0; j < mSceneHeight; ++j)
 		{
-			std::cout << "#";
+			bool found = false;
+			for (size_t k = 0; k < mTransforms.size(); ++k)
+			{
+				if (mTransforms.getComponent(k).x == i && mTransforms.getComponent(k).y == j)
+				{
+					std::cout << mViews.getComponent(k).symbol;
+					found = true;
+					break;
+				}
+			}
+			if (!found)
+			{
+				std::cout << '#';
+			}
 		}
 		std::cout << "\n";
 	}

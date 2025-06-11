@@ -14,10 +14,17 @@ private:
 	std::vector <char> mScene;
 	ComponentSet<Transform> mTransforms;
 	ComponentSet<View> mViews;
-	size_t mSceneWidth;
-	size_t mSceneHeight;
+
+	// Render properties
+	int mCameraX;
+	int mCameraY;
+	size_t mCameraWidth;
+	size_t mCameraHeight;
+
+	// Game loop functions
 	void start();
 	void readInput();
 	void update();
+	void render();
 	void end();
 };

@@ -12,6 +12,8 @@ using json = nlohmann::json;
 Engine::Engine()
 {
 	mRunning = true;
+	mCameraX = 0;
+	mCameraY = 0;
 }
 
 void Engine::startGameLoop()
@@ -21,6 +23,7 @@ void Engine::startGameLoop()
 	{
 		readInput();
 		update();
+		render();
 	}
 	end();
 }
@@ -42,14 +45,18 @@ void Engine::start()
 	ifile.close();
 
 	// Setup the scene from init JSON
-	mSceneWidth = init["width"];
-	mSceneHeight = init["height"];
+	mCameraWidth = init["width"];
+	mCameraHeight = init["height"];
 
 	// Initialize scene with some characters
-	mTransforms = ComponentSet<Transform>(mSceneWidth * mSceneHeight);
+	mTransforms = ComponentSet<Transform>();
 	mTransforms.addComponent({2, 2});
-	mViews = ComponentSet<View>(mSceneWidth * mSceneHeight);
+	mTransforms.addComponent({0, 0});
+	mTransforms.addComponent({-2, -2});
+	mViews = ComponentSet<View>();
 	mViews.addComponent({'P'});
+	mViews.addComponent({'#'});
+	mViews.addComponent({'#'});
 }
 
 void Engine::readInput()
@@ -65,14 +72,21 @@ void Engine::readInput()
 
 void Engine::update()
 {
-	for (size_t i=0; i < mSceneWidth; ++i)
+	
+}
+
+void Engine::render()
+{
+	int rowStart = mCameraY-mCameraHeight/2;
+	int columnStart = mCameraX-mCameraWidth/2;
+	for (int r=rowStart; r < rowStart+(int)mCameraHeight; ++r)
 	{
-		for (size_t j = 0; j < mSceneHeight; ++j)
+		for (int c=columnStart; c < columnStart+(int)mCameraWidth; ++c)
 		{
 			bool found = false;
 			for (size_t k = 0; k < mTransforms.size(); ++k)
 			{
-				if (mTransforms.getComponent(k).x == i && mTransforms.getComponent(k).y == j)
+				if (mTransforms.getComponent(k).x == c && mTransforms.getComponent(k).y == r)
 				{
 					std::cout << mViews.getComponent(k).symbol;
 					found = true;
@@ -81,7 +95,7 @@ void Engine::update()
 			}
 			if (!found)
 			{
-				std::cout << '#';
+				std::cout << ' ';
 			}
 		}
 		std::cout << "\n";
